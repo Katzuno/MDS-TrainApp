@@ -2,10 +2,149 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<style>
+  strong
+  {
+    font-size: 1.4rem;
+  }
+</style>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Documentatie API <%= title %></p>
+
+    <strong> BASE URL: 138.68.64.146/node/api/</strong>
+
+    <h3> ENDPOINT-URI USERS </h3>
+
+    <strong> * GET USERS</strong>
+    <ul>
+      <li>
+        METHOD: [GET]
+      </li>
+      <li>
+        PATH: /getUsers
+      </li>
+      <li>
+        PARAMETRII REQUEST: id
+      </li>
+      <li>
+        PARAMETRII REQUEST: id, username, password, role, created_at
+      </li>
+      <li>
+        MODEL: /getUsers?id=3
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+        <CODE>
+          [{"id":1,"username":"erik","password":"ursuspeleus","role":"2","created_at":"2019-04-25T09:50:48.000Z"},
+          {"id":2,"username":"gigel","password":"pazvante","role":"2","created_at":"2019-04-25T10:51:24.000Z"}]
+        </CODE>
+      </li>
+    </ul>
+
+    <strong> * GET USER ID</strong>
+    <ul>
+      <li>
+        METHOD: [GET]
+      </li>
+      <li>
+        PATH: /getUserId
+      </li>
+      <li>
+        PARAMETRII REQUEST: username
+      </li>
+      <li>
+        PARAMETRII REQUEST: username
+      </li>
+      <li>
+        MODEL: /getUsers?username=erik
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {"id":1}
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * ADD USER</strong>
+    <ul>
+      <li>
+        METHOD: [POST]
+      </li>
+      <li>
+        PATH: /addUser
+      </li>
+      <li>
+        PARAMETRII REQUEST: username, password, role
+      </li>
+      <li>
+        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+      </li>
+      <li>
+        MODEL REQUEST:
+        <CODE>
+          {
+          "username": "gigel",
+          "password": "pazvante",
+          "role": 2
+          }
+        </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {
+        "Status": 1,
+        "Desc": "User inserted succesfully"
+        }
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * AUTHENTICATE USER</strong>
+    <ul>
+      <li>
+        METHOD: [POST]
+      </li>
+      <li>
+        PATH: /validateUser
+      </li>
+      <li>
+        PARAMETRII REQUEST: username, password
+      </li>
+      <li>
+        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+      </li>
+      <li>
+        MODEL REQUEST:
+        <CODE>
+          {
+          "username": "gigel",
+          "password": "pazvante2"
+          }
+        </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {
+        "Status": 0,
+        "Desc": "Username or password is not correct"
+        }
+      </CODE>
+      </li>
+    </ul>
+  <footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </footer>
   </body>
 </html>
