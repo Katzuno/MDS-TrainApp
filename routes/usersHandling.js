@@ -138,12 +138,12 @@ router.post('/validateUser', function (req, res) {
     var username = req.body.username;
     var pass = req.body.password;
 
-    sql_string = "SELECT id FROM " + process.env.USERS_TABLE + " WHERE username = '" + username + "' AND password = '" + pass + "' LIMIT 1";
+    sql_string = "SELECT id, role FROM " + process.env.USERS_TABLE + " WHERE username = '" + username + "' AND password = '" + pass + "' LIMIT 1";
     query = db.Operation(sql_string);
 
     query.catch(function (err) {
         //console.error(err);
-        response = {"Status": 0, "Desc": err}
+        response = {"Status": 0, "Desc": err};
         res.send(response);
     });
 
@@ -151,7 +151,7 @@ router.post('/validateUser', function (req, res) {
             //console.log("[RESULT] ", result);
             //return result;
             if (result.length > 0) {
-                data = {"Status": 1, "username": username};
+                data = {"Status": 1, "id": result[0].id, "username": username, "role": result[0].role};
                 jwt.sign({data}, secret_key, {expiresIn: '2d'}, (err, token) => {
                     res.json({
                         token
