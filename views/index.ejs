@@ -9,6 +9,10 @@
   {
     font-size: 1.4rem;
   }
+  span
+  {
+    color: red;
+  }
 </style>
   </head>
   <body>
@@ -46,7 +50,7 @@
       </li>
     </ul>
 
-    <strong> * GET USER ID</strong>
+    <strong> * GET USER ID <span>(NEEDS AUTHORIZATION)</span></strong>
     <ul>
       <li>
         METHOD: [GET]
@@ -55,13 +59,13 @@
         PATH: /getUserId
       </li>
       <li>
-        PARAMETRII REQUEST: username
+        PARAMETRII HEADER: Authorization: Bearer ACCESS_TOKEN
       </li>
       <li>
-        PARAMETRII REQUEST: username
+        PARAMETRII REQUEST: NU AVEM
       </li>
       <li>
-        MODEL: /getUsers?username=erik
+        MODEL: /getUserId
       </li>
       <li>
         MODEL RESPONSE:
@@ -117,10 +121,17 @@
         PATH: /validateUser
       </li>
       <li>
+        In token este continut username-ul in canmpul data
+      </li>
+      <li>
         PARAMETRII REQUEST: username, password
       </li>
       <li>
-        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+        PARAMETRII RESPONSE FAIL: Status [0 - error], Desc [ String ]
+      </li>
+      <li>
+        PARAMETRII RESPONSE SUCCESS:
+        token: ACCESS_TOKEN
       </li>
       <li>
         MODEL REQUEST:
@@ -140,6 +151,27 @@
         "Desc": "Username or password is not correct"
         }
       </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE SUCCESS:
+        <code>
+        {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7IlN0YXR1cyI6MSwidXNlcm5hbWUiOiJnaWdlbCJ9LCJpYXQiOjE1NTYyNzE2MTEsImV4cCI6MTU1NjQ0NDQxMX0.Q3ieBCo7lGxGa3yy6Xqn_C1Fx2H_OZuVsMiAhEVS0bw"
+        }
+        </code>
+      </li>
+      <li>
+        DECODARE TOKEN:
+        <code>
+        {
+        "data": {
+        "Status": 1,
+        "username": "gigel"
+        },
+        "iat": 1556270395,
+        "exp": 1556443195
+        }
+        </code>
       </li>
     </ul>
   <footer>
