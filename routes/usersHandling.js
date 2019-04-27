@@ -6,7 +6,7 @@ const secret_key = Buffer.from(process.env.SECRET).toString('base64')
 /* GET users listing. */
 router.get('/getUsers', function (req, res) {
     res.header('Content-Type', 'application/json');
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT id, username, role, created_at FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -39,7 +39,7 @@ router.get('/getUserId', verifyToken, function (req, res) {
 
            // res.send(decode);
             res.header('Content-Type', 'application/json');
-
+            res.setHeader('Access-Control-Allow-Origin', '*');
             if (decode.data.hasOwnProperty('username')) {
                 console.info('Username=', decode.data.username);
                 query = db.Operation("SELECT id FROM " + process.env.USERS_TABLE + " WHERE username = '" + decode.data.username + "' LIMIT 1");
@@ -67,7 +67,7 @@ router.get('/getUserId', verifyToken, function (req, res) {
 
 router.get('/getUsers', function (req, res) {
     res.header('Content-Type', 'application/json');
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -95,7 +95,7 @@ router.get('/getUsers', function (req, res) {
 
 router.post('/addUser', function (req, res) {
     res.header('Content-Type', 'application/json');
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
     let query, response;
 
     var username = req.body.username;
@@ -132,7 +132,7 @@ router.post('/addUser', function (req, res) {
 
 router.post('/validateUser', function (req, res) {
     res.header('Content-Type', 'application/json');
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
     let query, response;
 
     var username = req.body.username;
