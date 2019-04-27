@@ -4,7 +4,7 @@ var db = require('../database/dbHelper');
 const jwt = require('jsonwebtoken');
 const secret_key = Buffer.from(process.env.SECRET).toString('base64')
 /* GET users listing. */
-router.get('/getUsers', function (req, res) {
+router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.hasOwnProperty('id')) {
@@ -31,7 +31,7 @@ router.get('/getUsers', function (req, res) {
     console.log('Query still executing...')
 });
 
-router.get('/getUserId', verifyToken, function (req, res) {
+router.get('/getUserId', addAccessControl, verifyToken, function (req, res) {
     jwt.verify(req.token, secret_key, function (err, decode) {
         if (err) {
             res.sendStatus(401);
@@ -65,7 +65,7 @@ router.get('/getUserId', verifyToken, function (req, res) {
     });
 });
 
-router.get('/getUsers', function (req, res) {
+router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.hasOwnProperty('id')) {
@@ -93,7 +93,7 @@ router.get('/getUsers', function (req, res) {
 });
 
 
-router.post('/addUser', function (req, res) {
+router.post('/addUser', addAccessControl,  function (req, res) {
     res.header('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     let query, response;
@@ -130,7 +130,7 @@ router.post('/addUser', function (req, res) {
 });
 
 
-router.post('/validateUser', function (req, res) {
+router.post('/validateUser', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     let query, response;
@@ -175,6 +175,11 @@ router.post('/validateUser', function (req, res) {
 
 });
 
+// Verify Token
+function addAccessControl(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+}
 
 // Verify Token
 function verifyToken(req, res, next) {
@@ -188,10 +193,12 @@ function verifyToken(req, res, next) {
         const bearerToken = bearer[1];
         // Set the token
         req.token = bearerToken;
+        res.setHeader('Access-Control-Allow-Origin', '*');
         // Next middleware
         next();
     } else {
         // Forbidden
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.sendStatus(401);
     }
 }
