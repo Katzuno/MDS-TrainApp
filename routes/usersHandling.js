@@ -6,7 +6,21 @@ const secret_key = Buffer.from(process.env.SECRET).toString('base64')
 /* GET users listing. */
 router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    var responseSettings = {
+        "AccessControlAllowOrigin": req.headers.origin,
+        "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+        "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+        "AccessControlAllowCredentials": true
+    };
+
+    /**
+     * Headers
+     */
+    res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+    res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+    res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+    res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT id, username, role, created_at FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -39,7 +53,21 @@ router.get('/getUserId', addAccessControl, verifyToken, function (req, res) {
 
            // res.send(decode);
             res.header('Content-Type', 'application/json');
-            res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+            var responseSettings = {
+                "AccessControlAllowOrigin": req.headers.origin,
+                "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+                "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+                "AccessControlAllowCredentials": true
+            };
+
+            /**
+             * Headers
+             */
+            res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+            res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+            res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+            res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
             if (decode.data.hasOwnProperty('username')) {
                 console.info('Username=', decode.data.username);
                 query = db.Operation("SELECT id FROM " + process.env.USERS_TABLE + " WHERE username = '" + decode.data.username + "' LIMIT 1");
@@ -67,7 +95,21 @@ router.get('/getUserId', addAccessControl, verifyToken, function (req, res) {
 
 router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    var responseSettings = {
+        "AccessControlAllowOrigin": req.headers.origin,
+        "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+        "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+        "AccessControlAllowCredentials": true
+    };
+
+    /**
+     * Headers
+     */
+    res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+    res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+    res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+    res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -95,7 +137,21 @@ router.get('/getUsers', addAccessControl, function (req, res) {
 
 router.post('/addUser', addAccessControl,  function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    var responseSettings = {
+        "AccessControlAllowOrigin": req.headers.origin,
+        "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+        "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+        "AccessControlAllowCredentials": true
+    };
+
+    /**
+     * Headers
+     */
+    res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+    res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+    res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+    res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
     let query, response;
 
     var username = req.body.username;
@@ -132,7 +188,21 @@ router.post('/addUser', addAccessControl,  function (req, res) {
 
 router.post('/validateUser', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    var responseSettings = {
+        "AccessControlAllowOrigin": req.headers.origin,
+        "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+        "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+        "AccessControlAllowCredentials": true
+    };
+
+    /**
+     * Headers
+     */
+    res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+    res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+    res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+    res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
     let query, response;
 
     var username = req.body.username;
@@ -177,8 +247,21 @@ router.post('/validateUser', addAccessControl, function (req, res) {
 
 // Verify Token
 function addAccessControl(req, res, next) {
-    req.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
-    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    var responseSettings = {
+        "AccessControlAllowOrigin": req.headers.origin,
+        "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+        "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+        "AccessControlAllowCredentials": true
+    };
+
+    /**
+     * Headers
+     */
+    res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+    res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+    res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+    res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
     next();
 }
 
@@ -194,12 +277,40 @@ function verifyToken(req, res, next) {
         const bearerToken = bearer[1];
         // Set the token
         req.token = bearerToken;
-        res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+        var responseSettings = {
+            "AccessControlAllowOrigin": req.headers.origin,
+            "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+            "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+            "AccessControlAllowCredentials": true
+        };
+
+        /**
+         * Headers
+         */
+        res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+        res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+        res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+        res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
         // Next middleware
         next();
     } else {
         // Forbidden
-        res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+        var responseSettings = {
+            "AccessControlAllowOrigin": req.headers.origin,
+            "AccessControlAllowHeaders": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name",
+            "AccessControlAllowMethods": "POST, GET, PUT, DELETE, OPTIONS",
+            "AccessControlAllowCredentials": true
+        };
+
+        /**
+         * Headers
+         */
+        res.header("Access-Control-Allow-Credentials", responseSettings.AccessControlAllowCredentials);
+        res.header("Access-Control-Allow-Origin",  responseSettings.AccessControlAllowOrigin);
+        res.header("Access-Control-Allow-Headers", (req.headers['access-control-request-headers']) ? req.headers['access-control-request-headers'] : "x-requested-with");
+        res.header("Access-Control-Allow-Methods", (req.headers['access-control-request-method']) ? req.headers['access-control-request-method'] : responseSettings.AccessControlAllowMethods);
+
         res.sendStatus(401);
     }
 }
