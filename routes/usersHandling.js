@@ -6,7 +6,7 @@ const secret_key = Buffer.from(process.env.SECRET).toString('base64')
 /* GET users listing. */
 router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT id, username, role, created_at FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -39,7 +39,7 @@ router.get('/getUserId', addAccessControl, verifyToken, function (req, res) {
 
            // res.send(decode);
             res.header('Content-Type', 'application/json');
-            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
             if (decode.data.hasOwnProperty('username')) {
                 console.info('Username=', decode.data.username);
                 query = db.Operation("SELECT id FROM " + process.env.USERS_TABLE + " WHERE username = '" + decode.data.username + "' LIMIT 1");
@@ -67,7 +67,7 @@ router.get('/getUserId', addAccessControl, verifyToken, function (req, res) {
 
 router.get('/getUsers', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
@@ -95,7 +95,7 @@ router.get('/getUsers', addAccessControl, function (req, res) {
 
 router.post('/addUser', addAccessControl,  function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
     let query, response;
 
     var username = req.body.username;
@@ -132,7 +132,7 @@ router.post('/addUser', addAccessControl,  function (req, res) {
 
 router.post('/validateUser', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
     let query, response;
 
     var username = req.body.username;
@@ -177,7 +177,8 @@ router.post('/validateUser', addAccessControl, function (req, res) {
 
 // Verify Token
 function addAccessControl(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    req.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
+    res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
     next();
 }
 
@@ -193,12 +194,12 @@ function verifyToken(req, res, next) {
         const bearerToken = bearer[1];
         // Set the token
         req.token = bearerToken;
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
         // Next middleware
         next();
     } else {
         // Forbidden
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Origin', 'localhost,mds.statescu.net');
         res.sendStatus(401);
     }
 }
