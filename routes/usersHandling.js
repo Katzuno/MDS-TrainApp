@@ -95,7 +95,7 @@ router.get('/getUsers', addAccessControl, function (req, res) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.USERS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
     } else {
-        query = db.Operation("SELECT * FROM " + +process.env.USERS_TABLE);
+        query = db.Operation("SELECT * FROM " + process.env.USERS_TABLE);
         console.info("Nu exista id, se vor selecta toti");
     }
 
