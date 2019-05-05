@@ -159,12 +159,12 @@ router.post('/addTicketType', addAccessControl, verifyToken, function (req, res)
 
 router.get('/getTrips', addAccessControl, function (req, res) {
     res.header('Content-Type', 'application/json');
-
+   // res.send(process.env.TRIPS_TABLE);
     if (req.query.hasOwnProperty('id')) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.TRIPS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
     } else {
-        query = db.Operation("SELECT * FROM " + +process.env.TRIPS_TABLE);
+        query = db.Operation("SELECT * FROM " + process.env.TRIPS_TABLE);
         console.info("Nu exista id, se vor selecta toti");
     }
 
@@ -191,7 +191,7 @@ router.get('/getTickets', addAccessControl, function (req, res) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.TICKETS_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
     } else {
-        query = db.Operation("SELECT * FROM " + +process.env.TICKETS_TABLE);
+        query = db.Operation("SELECT * FROM " + process.env.TICKETS_TABLE);
         console.info("Nu exista id, se vor selecta toti");
     }
 
@@ -218,7 +218,7 @@ router.get('/getTicketTypes', addAccessControl, function (req, res) {
         console.info('Id=', req.query.id);
         query = db.Operation("SELECT * FROM " + process.env.TKTYPES_TABLE + " WHERE id = " + req.query.id + " LIMIT 1");
     } else {
-        query = db.Operation("SELECT * FROM " + +process.env.TKTYPES_TABLE);
+        query = db.Operation("SELECT * FROM " + process.env.TKTYPES_TABLE);
         console.info("Nu exista id, se vor selecta toti");
     }
 

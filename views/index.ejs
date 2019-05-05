@@ -176,6 +176,216 @@
         </code>
       </li>
     </ul>
+
+
+
+
+
+
+
+
+    <h3> ENDPOINT-URI TICKETE (TO DO: documentatie mai detaliata) </h3>
+
+    <strong> * GET Trips <span> NEEDS AUTHORIZATION </span></strong>
+    <ul>
+      <li>
+        METHOD: [GET]
+      </li>
+      <li>
+        PATH: /getTrips
+      </li>
+      <li>
+        PARAMETRII REQUEST: id
+      </li>
+      <li>
+        PARAMETRII RESPONSE: id, departure, arrival, etc.
+      </li>
+      <li>
+        MODEL: /getTrips?id=2
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        [
+        {"id":1,"train_id":1,"departure_date":"2019-05-15T05:00:00.000Z","arrival_date":"2019-05-15T13:00:00.000Z","arrival_loc":"Iasi","arrival_station":"Gara Iasi","departure_loc":"Bucuresti","departure_station":"Gara de Nord","date_added":"2019-05-04T10:09:49.000Z"},
+        {"id":2,"train_id":1,"departure_date":"2019-05-15T05:00:00.000Z","arrival_date":"2019-05-15T13:00:00.000Z","arrival_loc":"Braila","arrival_station":"Gara Braila","departure_loc":"Bucuresti","departure_station":"Gara de Nord","date_added":"2019-05-04T10:47:50.000Z"}
+        ]
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * GET Tickets <span> NEEDS AUTHORIZATION </span></strong>
+    <ul>
+      <li>
+        METHOD: [GET]
+      </li>
+      <li>
+        PATH: /getTickets
+      </li>
+      <li>
+        PARAMETRII REQUEST: id
+      </li>
+      <li>
+        PARAMETRII RESPONSE: id, trip_id, price, date_added, ticket_type, bought_times, etc.
+      </li>
+      <li>
+        MODEL: /getTickets?id=2
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        [
+        {"id":2,"trip_id":1,"price":30,"date_added":"2019-05-04T10:10:45.000Z","ticket_type":"2","bought_times":0}
+        ]
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * GET TicketTypes <span> NEEDS AUTHORIZATION </span></strong>
+    <ul>
+      <li>
+        METHOD: [GET]
+      </li>
+      <li>
+        PATH: /getTicketTypes
+      </li>
+      <li>
+        PARAMETRII REQUEST: id
+      </li>
+      <li>
+        PARAMETRII RESPONSE: id (1...6), desc (pensionar, elev, student, normal, handicapat, puradel)
+      </li>
+      <li>
+        MODEL: /getTicketTypes?id=2
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        [
+        ]
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * ADD TRIP (<span> NEEDS AUTHORIZATION AND ROLE == 2</span>)</strong>
+    <ul>
+      <li>
+        METHOD: [POST]
+      </li>
+      <li>
+        PATH: /addTrip
+      </li>
+      <li>
+        PARAMETRII REQUEST: trainId (FK momentan am adaugat doar tren id 1), departureDate, arrivalDate, arrivalLoc, arrivalStation, departureLoc, departureStation
+      </li>
+      <li>
+        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+      </li>
+      <li>
+        MODEL REQUEST:
+        <CODE>
+          {
+          "trainId": 1,
+          "departureDate": "2019-05-15 08:00:00",
+          "arrivalDate": "2019-05-15 16:00:00",
+          "arrivalLoc": "Braila",
+          "arrivalStation": "Gara Braila",
+          "departureLoc": "Bucuresti",
+          "departureStation": "Gara de Nord"
+          }
+        </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {
+        "Status": 1,
+        "Desc": "Trip inserted succesfully"
+        }
+        <br/>
+        SAU 401 Unauthorized / 403 Forbidden
+      </CODE>
+      </li>
+    </ul>
+
+    <strong> * ADD TICKET (<span> NEEDS AUTHORIZATION AND ROLE == 2</span>)</strong>
+    <ul>
+      <li>
+        METHOD: [POST]
+      </li>
+      <li>
+        PATH: /addTrip
+      </li>
+      <li>
+        PARAMETRII REQUEST: tripId (FK - trebuie sa adaugi trip inainte), price, ticketType
+      </li>
+      <li>
+        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+      </li>
+      <li>
+        MODEL REQUEST:
+        <CODE>
+          {
+          "tripId": 1,
+          "price": 100,
+          "ticketType": 2
+          }
+        </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {
+        "Status": 1,
+        "Desc": "Ticket inserted succesfully"
+        }
+        <br/>
+        SAU 401 Unauthorized / 403 Forbidden
+      </CODE>
+      </li>
+    </ul>
+
+
+    <strong> * ADD TICKET (<span> NEEDS AUTHORIZATION AND ROLE == 2</span>)</strong>
+    <ul>
+      <li>
+        METHOD: [POST]
+      </li>
+      <li>
+        PATH: /addTicketType
+      </li>
+      <li>
+        PARAMETRII REQUEST: ticketTypeDesc [String]
+      </li>
+      <li>
+        PARAMETRII RESPONSE: Status [0 - error, 1 - success], Desc [ String ]
+      </li>
+      <li>
+        MODEL REQUEST:
+        <CODE>
+          {
+          "ticketTypeDesc": "Student"
+          }
+        </CODE>
+      </li>
+      <li>
+        MODEL RESPONSE:
+      </li>
+      <CODE>
+        {
+        "Status": 1,
+        "Desc": "Ticket Type inserted succesfully"
+        }
+        <br/>
+        SAU 401 Unauthorized / 403 Forbidden
+      </CODE>
+      </li>
+    </ul>
   <footer>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
