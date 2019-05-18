@@ -112,6 +112,57 @@ router.post('/addTicket', addAccessControl, verifyToken, function (req, res) {
 });
 
 
+
+router.post('/addTicketTransaction', addAccessControl, verifyToken, function (req, res) {
+    res.header('Content-Type', 'application/json');
+
+    jwt.verify(req.token, secret_key, function (err, decode) {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            let query, response;
+            if (decode.data.role <= 2) // indiferent de rol
+            {
+                var ticket_id = req.body.ticketId;
+                var user_id = req.body.userId;
+                var transaction_type = req.body.transactionType; // 0 = rezervare, 1 = cumparare
+//INSERT INTO `Tickets` (`id`, `trip_id`, `price`, `date_added`, `ticket_type`, `bought_times`) VALUES (NULL, '1', '30', CURRENT_TIMESTAMP, '2', '0');
+
+                sql_string = "INSERT INTO " + process.env.TKTR_TABLE + " (ticket_id, user_id, transaction_type) " +
+                    "VALUES(" + ticket_id + ", " + user_id + ", " + transaction_type + ")";
+                query = db.Operation(sql_string);
+
+                query.catch(function (err) {
+                    //console.error(err);
+                    response = {"Status": 0, "Desc": err}
+                    res.send(response);
+                });
+
+                query.then(function (result) {
+                        //console.log("[RESULT] ", result);
+                        //return result;
+                        response = {"Status": 1, "Desc": "Transaction inserted succesfully"}
+                        res.send(response);
+
+                    },
+                    function (err) {
+                        //console.error(err);
+                        response = {"Status": 0, "Desc": err}
+                        res.send(response);
+                    }
+                );
+
+                console.log('Query still executing...')
+            }
+            else
+            {
+                res.sendStatus(403);
+            }
+        }
+    });
+});
+
+
 router.post('/addTicketType', addAccessControl, verifyToken, function (req, res) {
     res.header('Content-Type', 'application/json');
 
